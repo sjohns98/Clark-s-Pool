@@ -79,6 +79,8 @@ public class OrderEntry extends JFrame {
 		});
 		btnCustomerMaintenance.setBounds(347, 75, 149, 43);
 		contentPane.add(btnCustomerMaintenance);
+		setUndecorated(true); //remove frame outline
 	}
+	
 
 }
