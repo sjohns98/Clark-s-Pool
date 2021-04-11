@@ -6,9 +6,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class OrderEntry extends JFrame {
 
@@ -79,6 +84,18 @@ public class OrderEntry extends JFrame {
 		});
 		btnCustomerMaintenance.setBounds(347, 75, 149, 43);
 		contentPane.add(btnCustomerMaintenance);
+		JLabel lblNewLabel_3 = new JLabel("X");
+		lblNewLabel_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+			}
+		});
+		lblNewLabel_3.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_3.setBounds(625, 11, 46, 23);
+		contentPane.add(lblNewLabel_3);
 		setUndecorated(true); //remove frame outline
 	}
 	
