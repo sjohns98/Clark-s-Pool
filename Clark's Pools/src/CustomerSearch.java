@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JEditorPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -46,7 +48,7 @@ public class CustomerSearch extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(800, 500, 681, 471);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(248, 248, 255));
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -77,27 +79,30 @@ public class CustomerSearch extends JFrame {
 		lblNewLabel_1.setBounds(115, 85, 69, 14);
 		contentPane.add(lblNewLabel_1);
 		
-		JEditorPane editorPane = new JEditorPane();
-		editorPane.setBounds(0, 174, 434, 20);
-		contentPane.add(editorPane);
-		
 		JButton btnNewButton = new JButton("Create User");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Pool pool = new Pool();
+				pool.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(188, 205, 109, 31);
+		btnNewButton.setBounds(180, 144, 109, 31);
 		contentPane.add(btnNewButton);
 		
-		txtX = new JTextField();
-		txtX.setForeground(new Color(0, 0, 0));
-		txtX.setBackground(UIManager.getColor("Button.background"));
-		txtX.setFont(new Font("Tahoma", Font.BOLD, 15));
-		txtX.setHorizontalAlignment(SwingConstants.RIGHT);
-		txtX.setText("X");
-		txtX.setBounds(624, 11, 47, 20);
-		contentPane.add(txtX);
-		txtX.setColumns(10);
+		JLabel lblNewLabel_3 = new JLabel("X");
+		lblNewLabel_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+			}
+		});
+		lblNewLabel_3.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_3.setBounds(625, 11, 46, 23);
+		contentPane.add(lblNewLabel_3);
+		
+		
 		setUndecorated(true); //remove frame outline
 	}
 }

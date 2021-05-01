@@ -49,20 +49,18 @@ public class LoginScreen extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(800, 500, 681, 471);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(100, 149, 237));
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		textField = new JTextField();
-		textField.setEditable(false);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField.setBounds(181, 126, 335, 40);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setEditable(false);
 		passwordField.setBounds(181, 193, 335, 40);
 		contentPane.add(passwordField);
 		
@@ -70,6 +68,11 @@ public class LoginScreen extends JFrame {
 		btnNewButton.setBackground(new Color(169, 169, 169));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				OrderEntry orderEntry = new OrderEntry();
+				orderEntry.setVisible(true);
+				
+				
 			}
 		});
 		btnNewButton.setBorder(new EmptyBorder(0, 0, 0, 0));

@@ -52,6 +52,10 @@ public class OrderEntry extends JFrame {
 		btnNewButton.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CustomerSearch customerSearch = new CustomerSearch();
+				customerSearch.setVisible(true);
+				
+			
 			}
 		});
 		btnNewButton.setBounds(44, 75, 129, 43);
@@ -71,6 +75,8 @@ public class OrderEntry extends JFrame {
 		btnExistingOrder.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnExistingOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CustomerInfo customerInfo = new CustomerInfo();
+				customerInfo.setVisible(true);
 			}
 		});
 		btnExistingOrder.setBounds(194, 75, 129, 43);
@@ -80,6 +86,8 @@ public class OrderEntry extends JFrame {
 		btnCustomerMaintenance.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnCustomerMaintenance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CustomerInfo customerInfo = new CustomerInfo();
+				customerInfo.setVisible(true);
 			}
 		});
 		btnCustomerMaintenance.setBounds(347, 75, 149, 43);
