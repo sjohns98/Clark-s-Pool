@@ -8,10 +8,16 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
@@ -50,48 +56,56 @@ public class OrderEntry extends JFrame {
 		
 		JButton btnNewButton = new JButton("New Order");
 		btnNewButton.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CustomerSearch customerSearch = new CustomerSearch();
-				customerSearch.setVisible(true);
-				
-			
-			}
-		});
+	//	btnNewButton.addActionListener(new ActionListener() {
+	//		
+//			public void actionPerformed(ActionEvent e) {
+//				
+//					try {
+//					
+//					//Class.forName("com.mysql.jdbc.Driver");
+//					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clark's pools", "root", "COSC*457");
+//					Statement stmt = con.createStatement();
+//					String sql = "Select * from department where name = '" +email.getText()+"'and Password= '"+password.getText().toString()+ "'";
+//					ResultSet rs = stmt.executeQuery(sql);
+//					System.out.println(sql);
+//					System.out.println(rs);
+//
+//					
+//					if(rs.next()) {
+//						OrderEntry orderEntry = new OrderEntry();
+//						orderEntry.setVisible(true);
+//					}
+//					else
+//						JOptionPane.showMessageDialog(null,"Incorrect username and Password...");
+//					con.close();
+//					
+//				} catch(Exception t){System.out.print(t);};
+//				
+//				
+//				
+//				
+//			}
+//				
+//				
+//				
+//				CustomerSearch customerSearch = new CustomerSearch();
+//				customerSearch.setVisible(true);
+//				
+//			
+//			}
+//		});
 		btnNewButton.setBounds(44, 75, 129, 43);
 		contentPane.add(btnNewButton);
 		
 		btnNewButton_1 = new JButton("Repair");
 		btnNewButton_1.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		btnNewButton_1.setBounds(44, 158, 129, 39);
+		btnNewButton_1.setBounds(194, 77, 129, 39);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnAdmin = new JButton("Admin");
 		btnAdmin.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		btnAdmin.setBounds(194, 158, 129, 39);
+		btnAdmin.setBounds(349, 77, 129, 39);
 		contentPane.add(btnAdmin);
-		
-		JButton btnExistingOrder = new JButton("Existing Order");
-		btnExistingOrder.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		btnExistingOrder.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CustomerInfo customerInfo = new CustomerInfo();
-				customerInfo.setVisible(true);
-			}
-		});
-		btnExistingOrder.setBounds(194, 75, 129, 43);
-		contentPane.add(btnExistingOrder);
-		
-		JButton btnCustomerMaintenance = new JButton("Customer Maintenance");
-		btnCustomerMaintenance.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		btnCustomerMaintenance.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CustomerInfo customerInfo = new CustomerInfo();
-				customerInfo.setVisible(true);
-			}
-		});
-		btnCustomerMaintenance.setBounds(347, 75, 149, 43);
-		contentPane.add(btnCustomerMaintenance);
 		JLabel lblNewLabel_3 = new JLabel("X");
 		lblNewLabel_3.addMouseListener(new MouseAdapter() {
 			@Override
