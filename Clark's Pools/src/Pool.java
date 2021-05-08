@@ -206,7 +206,7 @@ public class Pool extends JFrame {
 		comboBox_2_2_1_1_1.setBounds(94, 102, 74, 22);
 		contentPane.add(comboBox_2_2_1_1_1);
 		
-		JLabel lblSkinnersReturns = new JLabel("Skinners & Returns");
+		JLabel lblSkinnersReturns = new JLabel("Skimers & Returns");
 		lblSkinnersReturns.setBounds(10, 329, 82, 27);
 		contentPane.add(lblSkinnersReturns);
 		

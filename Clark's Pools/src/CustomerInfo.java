@@ -13,16 +13,15 @@ import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
 
 public class CustomerInfo extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
-	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
 
@@ -62,14 +61,6 @@ public class CustomerInfo extends JFrame {
 		textField.setBounds(29, 90, 233, 20);
 		contentPane.add(textField);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
-		textField_1.setBackground(Color.WHITE);
-		textField_1.setBounds(272, 90, 131, 20);
-		contentPane.add(textField_1);
-		
 		textField_2 = new JTextField();
 		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField_2.setEditable(false);
@@ -94,18 +85,6 @@ public class CustomerInfo extends JFrame {
 		textField_4.setBounds(125, 143, 252, 20);
 		contentPane.add(textField_4);
 		
-		JList list = new JList();
-		list.setBounds(581, 143, 68, 20);
-		contentPane.add(list);
-		
-		textField_5 = new JTextField();
-		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField_5.setEditable(false);
-		textField_5.setColumns(10);
-		textField_5.setBackground(Color.WHITE);
-		textField_5.setBounds(479, 143, 92, 20);
-		contentPane.add(textField_5);
-		
 		textField_6 = new JTextField();
 		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textField_6.setEditable(false);
@@ -117,10 +96,6 @@ public class CustomerInfo extends JFrame {
 		JLabel lblFirstName = new JLabel("First Name");
 		lblFirstName.setBounds(109, 62, 62, 27);
 		contentPane.add(lblFirstName);
-		
-		JLabel lblMiddleName = new JLabel("Middle Name");
-		lblMiddleName.setBounds(301, 62, 62, 27);
-		contentPane.add(lblMiddleName);
 		
 		JLabel lblLastName = new JLabel("Last Name");
 		lblLastName.setBounds(479, 62, 62, 27);
@@ -137,10 +112,6 @@ public class CustomerInfo extends JFrame {
 		JLabel lblCity = new JLabel("City");
 		lblCity.setBounds(423, 121, 62, 27);
 		contentPane.add(lblCity);
-		
-		JLabel lblState = new JLabel("County");
-		lblState.setBounds(509, 121, 62, 27);
-		contentPane.add(lblState);
 		
 		JLabel lblNewLabel_3 = new JLabel("X");
 		lblNewLabel_3.addMouseListener(new MouseAdapter() {
@@ -163,9 +134,17 @@ public class CustomerInfo extends JFrame {
 		textField_7.setBounds(29, 195, 160, 20);
 		contentPane.add(textField_7);
 		
-		JLabel lblEmailNumber = new JLabel("Email Number");
+		JLabel lblEmailNumber = new JLabel("Email");
 		lblEmailNumber.setBounds(29, 174, 76, 20);
 		contentPane.add(lblEmailNumber);
+		
+		JComboBox states = new JComboBox();
+		states.setBounds(483, 142, 123, 22);
+		contentPane.add(states);
+		states.addItem("Please select state: ");
+		states.addItem("Deleware");
+		states.addItem("Maryland");
+
 		
 		setUndecorated(true); //remove frame outline
 
