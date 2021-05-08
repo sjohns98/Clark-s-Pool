@@ -1,6 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
+import java.sql.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.border.BevelBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
@@ -22,8 +23,8 @@ import javax.swing.border.EtchedBorder;
 public class LoginScreen extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField email;
+	private JPasswordField password;
 	private JLabel lblNewLabel_2;
 
 	/**
@@ -54,23 +55,43 @@ public class LoginScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField.setBounds(181, 126, 335, 40);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		email = new JTextField();
+		email.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		email.setBounds(181, 126, 335, 40);
+		contentPane.add(email);
+		email.setColumns(10);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(181, 193, 335, 40);
-		contentPane.add(passwordField);
+		password = new JPasswordField();
+		password.setBounds(181, 193, 335, 40);
+		contentPane.add(password);
 		
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.setBackground(new Color(169, 169, 169));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				OrderEntry orderEntry = new OrderEntry();
-				orderEntry.setVisible(true);
+				try {
+					
+					//Class.forName("com.mysql.jdbc.Driver");
+					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clark's pools", "root", "COSC*457");
+					Statement stmt = con.createStatement();
+					String sql = "Select * from employee where email = '" +email.getText()+"'and Password= '"+password.getText().toString()+ "'";
+					ResultSet rs = stmt.executeQuery(sql);
+					System.out.println(sql);
+					System.out.println(rs);
+
+					
+					if(rs.next()) {
+						OrderEntry orderEntry = new OrderEntry();
+						orderEntry.setVisible(true);
+					}
+					else
+						JOptionPane.showMessageDialog(null,"Incorrect username and Password...");
+					con.close();
+					
+				} catch(Exception t){System.out.print(t);};
+				
+				
 				
 				
 			}
