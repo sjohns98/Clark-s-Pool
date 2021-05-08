@@ -73,7 +73,7 @@ public class LoginScreen extends JFrame {
 				try {
 					
 					//Class.forName("com.mysql.jdbc.Driver");
-					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clark's pools", "root", "COSC*457");
+					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clark's pools", "root", "");
 					Statement stmt = con.createStatement();
 					String sql = "Select * from employee where email = '" +email.getText()+"'and Password= '"+password.getText().toString()+ "'";
 					ResultSet rs = stmt.executeQuery(sql);

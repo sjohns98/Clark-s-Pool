@@ -216,6 +216,10 @@ public class Pool extends JFrame {
 		btnBuildOrder.setBounds(10, 418, 96, 23);
 		contentPane.add(btnBuildOrder);
 		
+		JComboBox comboBox_2_2_1_2_1 = new JComboBox();
+		comboBox_2_2_1_2_1.setBounds(527, 56, 74, 22);
+		comboBox_2_2_1_2_1.addItem("Tile Sizes");
+		
 		JComboBox comboBox_2_2_1_16_7 = new JComboBox();
 		comboBox_2_2_1_16_7.addItem("ConcreteTilePatterns");
 		comboBox_2_2_1_16_7.setBounds(480, 33, 111, 22);
@@ -287,7 +291,7 @@ public class Pool extends JFrame {
 					}
 					if(material.getSelectedItem().toString().equals("Concrete")) {
 						
-						contentPane.add(comboBox_2_1);
+						contentPane.add(comboBox_2_2_1_2_1);
 						contentPane.add(comboBox_2_2_2_1);
 						contentPane.add(comboBox_2_2_1_16_10);
 						contentPane.add(comboBox_2_2_1_16_7);

@@ -8,8 +8,13 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -20,10 +25,10 @@ import java.awt.event.ActionEvent;
 public class AdminLogin extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField email;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
-	private JPasswordField passwordField;
+	private JPasswordField password;
 
 	/**
 	 * Launch the application.
@@ -52,11 +57,11 @@ public class AdminLogin extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField.setColumns(10);
-		textField.setBounds(183, 96, 335, 40);
-		contentPane.add(textField);
+		email = new JTextField();
+		email.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		email.setColumns(10);
+		email.setBounds(183, 96, 335, 40);
+		contentPane.add(email);
 		
 		JLabel lblNewLabel_3 = new JLabel("X");
 		lblNewLabel_3.addMouseListener(new MouseAdapter() {
@@ -83,10 +88,32 @@ public class AdminLogin extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AddEmployee addEmployee = new AddEmployee();
-				addEmployee.setVisible(true);
+				try {
+				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clark's pools", "root", "");
+				Statement stmt = con.createStatement();
+				String sql = "Select * from employee where email= '" +email.getText()+"'and password= '"+password.getText().toString()+ "'and role= 'supervisor'";
+				ResultSet rs = stmt.executeQuery(sql);
+				
+				
+				System.out.println(sql);
+				System.out.println(rs);
+
+				
+				if(rs.next()) {
+					AddEmployee addEmployee = new AddEmployee();
+					addEmployee.setVisible(true);
+				}
+				else
+					JOptionPane.showMessageDialog(null,"Incorrect username and Password...");
+				con.close();
+				
+			} catch(Exception t){System.out.print(t);
+			
 			}
-		});
+			}
+			
+			
+			});
 		btnNewButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnNewButton.setBackground(new Color(169, 169, 169));
 		btnNewButton.setBounds(296, 231, 96, 23);
@@ -97,9 +124,9 @@ public class AdminLogin extends JFrame {
 		lblNewLabel_2.setBounds(309, 51, 62, 32);
 		contentPane.add(lblNewLabel_2);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(183, 169, 335, 40);
-		contentPane.add(passwordField);
+		password = new JPasswordField();
+		password.setBounds(183, 169, 335, 40);
+		contentPane.add(password);
 		
 		setUndecorated(true);
 	}
