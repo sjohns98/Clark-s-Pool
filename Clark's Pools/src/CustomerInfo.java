@@ -142,7 +142,7 @@ public class CustomerInfo extends JFrame {
 		states.setBounds(483, 142, 123, 22);
 		contentPane.add(states);
 		states.addItem("Please select state: ");
-		states.addItem("Deleware");
+		states.addItem("Delaware");
 		states.addItem("Maryland");
 
 		

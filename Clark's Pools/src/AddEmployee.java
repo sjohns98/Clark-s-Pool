@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JList;
+import javax.swing.JComboBox;
 
 public class AddEmployee extends JFrame {
 
@@ -69,7 +70,7 @@ public class AddEmployee extends JFrame {
 		textField.setEditable(false);
 		textField.setColumns(10);
 		textField.setBackground(Color.WHITE);
-		textField.setBounds(40, 66, 233, 20);
+		textField.setBounds(34, 66, 233, 20);
 		contentPane.add(textField);
 		
 		textField_1 = new JTextField();
@@ -112,10 +113,6 @@ public class AddEmployee extends JFrame {
 		textField_4.setBounds(438, 115, 86, 20);
 		contentPane.add(textField_4);
 		
-		JList list = new JList();
-		list.setBounds(534, 117, 68, 20);
-		contentPane.add(list);
-		
 		JLabel lblStreetNumber = new JLabel("Street Number");
 		lblStreetNumber.setBounds(36, 97, 76, 20);
 		contentPane.add(lblStreetNumber);
@@ -139,6 +136,13 @@ public class AddEmployee extends JFrame {
 		JLabel lblEmailNumber = new JLabel("Email");
 		lblEmailNumber.setBounds(34, 147, 76, 20);
 		contentPane.add(lblEmailNumber);
+		
+		JComboBox states = new JComboBox();
+		states.setBounds(536, 114, 123, 22);
+		contentPane.add(states);
+		states.addItem("Please select state: ");
+		states.addItem("Delaware");
+		states.addItem("Maryland");
 		
 		setUndecorated(true);
 	}
