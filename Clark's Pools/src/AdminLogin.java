@@ -13,14 +13,17 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AdminLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -68,12 +71,6 @@ public class AdminLogin extends JFrame {
 		lblNewLabel_3.setBounds(625, 11, 46, 23);
 		contentPane.add(lblNewLabel_3);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField_1.setColumns(10);
-		textField_1.setBounds(183, 169, 335, 40);
-		contentPane.add(textField_1);
-		
 		lblNewLabel = new JLabel("Username");
 		lblNewLabel.setBounds(114, 109, 62, 27);
 		contentPane.add(lblNewLabel);
@@ -83,6 +80,13 @@ public class AdminLogin extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Login");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AddEmployee addEmployee = new AddEmployee();
+				addEmployee.setVisible(true);
+			}
+		});
 		btnNewButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnNewButton.setBackground(new Color(169, 169, 169));
 		btnNewButton.setBounds(296, 231, 96, 23);
@@ -92,6 +96,10 @@ public class AdminLogin extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblNewLabel_2.setBounds(309, 51, 62, 32);
 		contentPane.add(lblNewLabel_2);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(183, 169, 335, 40);
+		contentPane.add(passwordField);
 		
 		setUndecorated(true);
 	}

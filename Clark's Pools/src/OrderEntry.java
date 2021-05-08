@@ -103,6 +103,14 @@ public class OrderEntry extends JFrame {
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnAdmin = new JButton("Admin");
+		btnAdmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				AdminLogin adminLogin = new AdminLogin();
+				adminLogin.setVisible(true);
+				
+			}
+		});
 		btnAdmin.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnAdmin.setBounds(349, 77, 129, 39);
 		contentPane.add(btnAdmin);
