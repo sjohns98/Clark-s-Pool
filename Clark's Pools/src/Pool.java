@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
@@ -98,88 +101,84 @@ public class Pool extends JFrame {
 		comboBox_2_1.setBounds(597, 33, 74, 22);
 		//contentPane.add(comboBox_2_1);
 		
-		JComboBox comboBox_2_2 = new JComboBox();
-		comboBox_2_2.addItem("Sand");
-		comboBox_2_2.addItem("De");
-		comboBox_2_2.addItem("Cartridge");
-		comboBox_2_2.setBounds(10, 102, 74, 22);
-		contentPane.add(comboBox_2_2);
+		JComboBox filter_type = new JComboBox();
+		filter_type.addItem("Sand");
+		filter_type.addItem("De");
+		filter_type.addItem("Cartridge");
+		filter_type.setBounds(10, 102, 74, 22);
+		contentPane.add(filter_type);
 		
 		JComboBox comboBox_2_2_1 = new JComboBox();
 		comboBox_2_2_1.addItem("FManufacturers");
 		comboBox_2_2_1.setBounds(525, 33, 74, 22);
 		///contentPane.add(comboBox_2_2_1);
 		
-		JComboBox comboBox_2_2_1_1 = new JComboBox();
-		comboBox_2_2_1_1.addItem("FModels");
-		comboBox_2_2_1_1.setBounds(178, 102, 74, 22);
-		contentPane.add(comboBox_2_2_1_1);
+		JComboBox filter_model = new JComboBox();
+		filter_model.addItem("FModels");
+		filter_model.setBounds(178, 102, 74, 22);
+		contentPane.add(filter_model);
 		
-		JComboBox comboBox_2_2_1_2 = new JComboBox();
-		comboBox_2_2_1_2.addItem("FSizes");
-		comboBox_2_2_1_2.setBounds(262, 102, 74, 22);
-		contentPane.add(comboBox_2_2_1_2);
+		JComboBox filter_size = new JComboBox();
+		filter_size.addItem("FSizes");
+		filter_size.setBounds(262, 102, 74, 22);
+		contentPane.add(filter_size);
 		
-		JComboBox comboBox_2_2_1_3 = new JComboBox();
-		comboBox_2_2_1_3.addItem("MPVBrands");
-		comboBox_2_2_1_3.setBounds(10, 166, 74, 22);
-		contentPane.add(comboBox_2_2_1_3);
+		JComboBox multiport_value_value = new JComboBox();
+		multiport_value_value.addItem("MPVBrands");
+		multiport_value_value.setBounds(10, 166, 74, 22);
+		contentPane.add(multiport_value_value);
 		
-		JComboBox comboBox_2_2_1_4 = new JComboBox();
-		comboBox_2_2_1_4.addItem("MPVSizes");
-		comboBox_2_2_1_4.setBounds(94, 166, 74, 22);
-		contentPane.add(comboBox_2_2_1_4);
+		JComboBox multiport_sizes = new JComboBox();
+		multiport_sizes.addItem("MPVSizes");
+		multiport_sizes.setBounds(94, 166, 74, 22);
+		contentPane.add(multiport_sizes);
 		
-		JComboBox comboBox_2_2_1_5 = new JComboBox();
-		comboBox_2_2_1_5.addItem("PumpBrands");
-		comboBox_2_2_1_5.setBounds(10, 227, 74, 22);
-		contentPane.add(comboBox_2_2_1_5);
+		JComboBox pump_brand = new JComboBox();
+		pump_brand.addItem("PumpBrands");
+		pump_brand.setBounds(10, 227, 74, 22);
+		contentPane.add(pump_brand);
 		
-		JComboBox comboBox_2_2_1_6 = new JComboBox();
-		comboBox_2_2_1_6.addItem("PumpModels");
-		comboBox_2_2_1_6.setBounds(94, 227, 74, 22);
-		contentPane.add(comboBox_2_2_1_6);
+		JComboBox pump_model = new JComboBox();
+		pump_model.addItem("PumpModels");
+		pump_model.setBounds(94, 227, 74, 22);
+		contentPane.add(pump_model);
 		
-		JComboBox comboBox_2_2_1_7 = new JComboBox();
-		comboBox_2_2_1_7.addItem("PumpSize's");
-		comboBox_2_2_1_7.setBounds(178, 227, 74, 22);
-		contentPane.add(comboBox_2_2_1_7);
+		JComboBox pump_size = new JComboBox();
+		pump_size.addItem("PumpSize's");
+		pump_size.setBounds(178, 227, 74, 22);
+		contentPane.add(pump_size);
 		
-		JComboBox comboBox_2_2_1_8 = new JComboBox();
-		comboBox_2_2_1_8.addItem("#Pumps");
-		comboBox_2_2_1_8.setBounds(262, 227, 74, 22);
-		contentPane.add(comboBox_2_2_1_8);
+		JComboBox number_pumps = new JComboBox();
+		number_pumps.addItem("#Pumps");
+		number_pumps.setBounds(262, 227, 74, 22);
+		contentPane.add(number_pumps);
 		
-		JComboBox comboBox_2_2_1_9 = new JComboBox();
-		comboBox_2_2_1_9.addItem("Chlorine Dispenser");
-		comboBox_2_2_1_9.addItem("Salt Generator");
-		comboBox_2_2_1_9.addItem("Floating Dispenser");
-		comboBox_2_2_1_9.setBounds(10, 296, 74, 22);
-		contentPane.add(comboBox_2_2_1_9);
+		JComboBox chlorine_dispenser = new JComboBox();
+		chlorine_dispenser.addItem("Chlorine Dispenser");
+		chlorine_dispenser.addItem("Salt Generator");
+		chlorine_dispenser.addItem("Floating Dispenser");
+		chlorine_dispenser.setBounds(10, 296, 74, 22);
+		contentPane.add(chlorine_dispenser);
 		
-		JComboBox comboBox_2_2_1_10 = new JComboBox();
-		comboBox_2_2_1_10.addItem("ChlorineBrands");
-		comboBox_2_2_1_10.setBounds(94, 296, 74, 22);
-		contentPane.add(comboBox_2_2_1_10);
+		JComboBox chlorine_brands = new JComboBox();
+		chlorine_brands.addItem("ChlorineBrands");
+		chlorine_brands.setBounds(94, 296, 74, 22);
+		contentPane.add(chlorine_brands);
 		
-		JComboBox comboBox_2_2_1_11 = new JComboBox();
-		comboBox_2_2_1_11.addItem("ChlorineModels");
-		comboBox_2_2_1_11.setBounds(178, 296, 74, 22);
-		contentPane.add(comboBox_2_2_1_11);
+		JComboBox chlorine_models = new JComboBox();
+		chlorine_models.addItem("ChlorineModels");
+		chlorine_models.setBounds(178, 296, 74, 22);
+		contentPane.add(chlorine_models);
 		
-		JComboBox comboBox_2_2_1_12 = new JComboBox();
-		comboBox_2_2_1_12.addItem("#skimers");
-		comboBox_2_2_1_12.setBounds(10, 352, 74, 22);
-		contentPane.add(comboBox_2_2_1_12);
+		JComboBox skimmers = new JComboBox();
+		skimmers.addItem("#skimmers");
+		skimmers.setBounds(10, 352, 74, 22);
+		contentPane.add(skimmers);
 		
-		JComboBox comboBox_2_2_1_13 = new JComboBox();
-		comboBox_2_2_1_13.addItem("#returns");
-		comboBox_2_2_1_13.setBounds(94, 352, 74, 22);
-		contentPane.add(comboBox_2_2_1_13);
-		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Safety Cover");
-		chckbxNewCheckBox.setBounds(99, 33, 97, 23);
-		contentPane.add(chckbxNewCheckBox);
+		JComboBox returns = new JComboBox();
+		returns.addItem("#returns");
+		returns.setBounds(94, 352, 74, 22);
+		contentPane.add(returns);
 		
 		JLabel lblPoolType = new JLabel("Pool Type");
 		lblPoolType.setBounds(27, 11, 62, 27);
@@ -201,20 +200,44 @@ public class Pool extends JFrame {
 		lblChlorinator.setBounds(10, 271, 82, 27);
 		contentPane.add(lblChlorinator);
 		
-		JComboBox comboBox_2_2_1_1_1 = new JComboBox();
-		comboBox_2_2_1_1_1.addItem("FilterBrands");
-		comboBox_2_2_1_1_1.setBounds(94, 102, 74, 22);
-		contentPane.add(comboBox_2_2_1_1_1);
+		JComboBox filter_brand = new JComboBox();
+		filter_brand.addItem("FilterBrands");
+		filter_brand.setBounds(94, 102, 74, 22);
+		contentPane.add(filter_brand);
 		
-		JLabel lblSkinnersReturns = new JLabel("Skimers & Returns");
+		JLabel lblSkinnersReturns = new JLabel("Skimmers & Returns");
 		lblSkinnersReturns.setBounds(10, 329, 82, 27);
 		contentPane.add(lblSkinnersReturns);
 		
-		JButton btnBuildOrder = new JButton("Build Order");
-		btnBuildOrder.setBorder(new EmptyBorder(0, 0, 0, 0));
-		btnBuildOrder.setBackground(new Color(169, 169, 169));
-		btnBuildOrder.setBounds(10, 418, 96, 23);
-		contentPane.add(btnBuildOrder);
+		
+		JCheckBox checkBox = new JCheckBox("Safety Cover");
+		contentPane.add(checkBox);
+		
+		JComboBox cover_brand = new JComboBox();
+		cover_brand.setBounds(178, 67, 74, 22);
+		cover_brand.addItem("cb");
+		
+		JComboBox cover_serial = new JComboBox();
+		cover_serial.addItem("123");
+		cover_serial.setBounds(262, 67, 74, 22);
+		
+		JComboBox cover_color = new JComboBox();
+		cover_color.addItem("cb");
+		cover_color.setBounds(346, 67, 74, 22);
+	
+		
+		JComboBox cover_type = new JComboBox();
+		cover_type.addItem("cover type");
+		cover_type.setBounds(429, 67, 74, 22);
+		
+		
+		JComboBox cover_spacing = new JComboBox();
+		cover_spacing.addItem("20");
+		cover_spacing.setBounds(512, 67, 74, 22);
+		
+		JComboBox cover_safety_check = new JComboBox();
+		cover_safety_check.addItem("2012-05-01");
+		cover_safety_check.setBounds(597, 67, 74, 22);
 		
 		JComboBox comboBox_2_2_1_2_1 = new JComboBox();
 		comboBox_2_2_1_2_1.setBounds(527, 56, 74, 22);
@@ -272,6 +295,26 @@ public class Pool extends JFrame {
 		comboBox_2_2_2_1.addItem("FinishColor/Pattern");
 		comboBox_2_2_2_1.setBounds(202, 33, 118, 22);
 		setUndecorated(true); //remove frame outline
+		
+		
+		
+//		checkBox.addItemListener(new ItemListener() {
+//			public void itemStateChanged(ItemEvent e) {
+//				if(e.getStateChange() == ItemEvent.SELECTED) {
+					
+					contentPane.add(cover_spacing);
+					contentPane.add(cover_type);
+					contentPane.add(cover_safety_check);
+					contentPane.add(cover_color);
+					contentPane.add(cover_serial);
+					contentPane.add(cover_brand);
+
+//				}
+//				
+//			}
+//		});
+		checkBox.setBounds(99, 33, 97, 23);
+		
 		
 		material.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -373,14 +416,59 @@ public class Pool extends JFrame {
 						contentPane.revalidate();
 						contentPane.repaint();
 						}
-					
-
+				
 					
 					
 					
 				}
 			}
 		});
+		
+		JButton btnBuildOrder = new JButton("Build Order");
+		btnBuildOrder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					
+					//Class.forName("com.mysql.jdbc.Driver");
+					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clark's pools", "root", "");
+					Statement stmt = con.createStatement();
+					System.out.println("Inserting records into table...");
+					
+					String sql = "INSERT INTO `filter` (`brand`, `type`, `size`, `model`, `id`) VALUES ('" 
+					+filter_brand.getSelectedItem()+"','"+filter_type.getSelectedItem().toString()+"',"+"'"+ filter_size.getSelectedItem()+"',"+"'"
+					+filter_model.getSelectedItem()+"',"+ null+");" + "\n" 
+					+"INSERT INTO `cover`(`brand`, `serial`, `color`, `type`, `last_safety_check_year`, `safety_cover_spacing`) VALUES ('"
+					+cover_brand.getSelectedItem() + "',"+ "'"+ cover_serial.getSelectedItem().toString() + "','"+ cover_color.getSelectedItem() +"','" + cover_type.getSelectedItem()+"','"+cover_safety_check.getSelectedItem().toString()+"','"+cover_spacing.getSelectedItem().toString()+"')";
+					//ResultSet rs = stmt.executeQuery(sql);
+					System.out.println(sql);
+					stmt.executeUpdate(sql);
+					
+					JOptionPane.showMessageDialog(null,"order successfully added to the database");
+					
+					TaskFinished taskFinished = new TaskFinished();
+					taskFinished.setVisible(true);
+					//System.out.println(rs);
+
+					
+//					if(rs.next()) {
+//						OrderEntry orderEntry = new OrderEntry();
+//						orderEntry.setVisible(true);
+//					}
+//					else
+//						JOptionPane.showMessageDialog(null,"Incorrect username and Password...");
+//					con.close();
+					
+				} catch(Exception t){System.out.print(t);};
+				
+				
+				
+				
+			}
+		});
+		btnBuildOrder.setBorder(new EmptyBorder(0, 0, 0, 0));
+		btnBuildOrder.setBackground(new Color(169, 169, 169));
+		btnBuildOrder.setBounds(10, 418, 96, 23);
+		contentPane.add(btnBuildOrder);
 
 	}
 }

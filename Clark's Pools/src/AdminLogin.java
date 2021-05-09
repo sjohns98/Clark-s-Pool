@@ -104,7 +104,7 @@ public class AdminLogin extends JFrame {
 					addEmployee.setVisible(true);
 				}
 				else
-					JOptionPane.showMessageDialog(null,"Incorrect username and Password...");
+					JOptionPane.showMessageDialog(null,"Employee does not have access. If you forgot username or password please reset...");
 				con.close();
 				
 			} catch(Exception t){System.out.print(t);

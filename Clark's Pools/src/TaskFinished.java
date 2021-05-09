@@ -6,6 +6,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.SwingConstants;
 
 public class TaskFinished extends JFrame {
@@ -40,6 +43,12 @@ public class TaskFinished extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel_3 = new JLabel("X");
+		lblNewLabel_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+			}
+		});
 		lblNewLabel_3.setHorizontalTextPosition(SwingConstants.RIGHT);
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 15));

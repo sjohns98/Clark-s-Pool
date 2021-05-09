@@ -55,6 +55,12 @@ public class OrderEntry extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnNewButton = new JButton("New Order");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CustomerSearch customerSearch = new CustomerSearch();
+				customerSearch.setVisible(true);
+			}
+		});
 		btnNewButton.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 	//	btnNewButton.addActionListener(new ActionListener() {
 	//		
@@ -102,7 +108,7 @@ public class OrderEntry extends JFrame {
 		btnNewButton_1.setBounds(194, 77, 129, 39);
 		contentPane.add(btnNewButton_1);
 		
-		JButton btnAdmin = new JButton("Admin");
+		JButton btnAdmin = new JButton("Add Employees");
 		btnAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
