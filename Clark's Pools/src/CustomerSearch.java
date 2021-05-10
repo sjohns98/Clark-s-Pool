@@ -4,6 +4,7 @@ import javax.swing.JTable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableModel;
 
 import net.proteanit.sql.DbUtils;
 
@@ -105,12 +106,16 @@ public class CustomerSearch extends JFrame {
 		contentPane.add(lblNewLabel_3);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setEnabled(false);
 		scrollPane.setBounds(248, 39, 408, 270);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		int column = 1; 
+		int row = table.getSelectedRow();
 		
+
 		JButton findUser = new JButton("Find Customer");
 		findUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -122,6 +127,8 @@ public class CustomerSearch extends JFrame {
 					String sql = "Select * from customer where first_name = '" +first_name.getText()+"'and last_name ='"+last_name.getText().toString()+ "'";
 					ResultSet rs = stmt.executeQuery(sql);
 					table.setModel(DbUtils.resultSetToTableModel(rs));
+					
+					
 					System.out.println(sql.toString());
 					System.out.println(rs.toString());
 
@@ -134,9 +141,16 @@ public class CustomerSearch extends JFrame {
 //					else
 //						JOptionPane.showMessageDialog(null,"Customer not found create new user");
 //					con.close();
+					table.getSelectedRow();
 					
 				} catch(Exception t){System.out.print(t);};
+//				String value = table.getModel().getValueAt(row, column).toString();
+//				System.out.print(value);
+				table.getSelectedRow();
+
 				
+				
+
 				
 				
 				

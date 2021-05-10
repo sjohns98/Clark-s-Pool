@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -25,6 +26,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class AddEmployee extends JFrame {
 
@@ -35,6 +37,7 @@ public class AddEmployee extends JFrame {
 	private JTextField role;
 	private JTextField email;
 	private JTextField ID;
+	private JTextField password;
 
 	/**
 	 * Launch the application.
@@ -83,6 +86,18 @@ public class AddEmployee extends JFrame {
 		first_name.setBounds(34, 66, 233, 20);
 		contentPane.add(first_name);
 		
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setBounds(204, 97, 76, 20);
+		contentPane.add(lblPassword);
+		
+
+		password = new JTextField();
+		password.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		password.setColumns(10);
+		password.setBackground(Color.WHITE);
+		password.setBounds(201, 115, 107, 20);
+		contentPane.add(password);
+		
 		last_name = new JTextField();
 		last_name.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		last_name.setColumns(10);
@@ -102,22 +117,22 @@ public class AddEmployee extends JFrame {
 		department.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		department.setColumns(10);
 		department.setBackground(Color.WHITE);
-		department.setBounds(344, 115, 132, 20);
+		department.setBounds(469, 115, 132, 20);
 		contentPane.add(department);
 		
 		role = new JTextField();
 		role.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		role.setColumns(10);
 		role.setBackground(Color.WHITE);
-		role.setBounds(202, 115, 132, 20);
+		role.setBounds(331, 115, 132, 20);
 		contentPane.add(role);
 		
 		JLabel txt = new JLabel("Department");
-		txt.setBounds(344, 97, 76, 20);
+		txt.setBounds(469, 97, 76, 20);
 		contentPane.add(txt);
 		
 		JLabel txtName = new JLabel("Role");
-		txtName.setBounds(202, 97, 62, 27);
+		txtName.setBounds(331, 94, 62, 27);
 		contentPane.add(txtName);
 		
 		email = new JTextField();
@@ -135,7 +150,7 @@ public class AddEmployee extends JFrame {
 		ID.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		ID.setColumns(10);
 		ID.setBackground(Color.WHITE);
-		ID.setBounds(486, 115, 160, 20);
+		ID.setBounds(469, 180, 160, 20);
 		contentPane.add(ID);
 		
 		JButton btnSearch = new JButton("Search");
@@ -185,40 +200,37 @@ public class AddEmployee extends JFrame {
 		});
 		btnSearch.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnSearch.setBackground(new Color(169, 169, 169));
-		btnSearch.setBounds(111, 176, 96, 23);
+		btnSearch.setBounds(59, 179, 96, 23);
 		contentPane.add(btnSearch);
 		
 		JLabel lblId = new JLabel("ID");
-		lblId.setBounds(488, 97, 76, 20);
+		lblId.setBounds(469, 159, 76, 20);
 		contentPane.add(lblId);
 		
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				
 				try {
 					
 					//Class.forName("com.mysql.jdbc.Driver");
 					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clark's pools", "root", "");
-					Statement stmt = con.createStatement();
-					String sql = "UPDATE 'employees' SET "+"'first_name'='" +first_name.getText()+"',"+"'last_name'='" 
-					+last_name.getText()+"'"+"'email'='" +email.getText()+"',"+"'role'='"+role.getText()
-					+"'department_name'="+department.getText()+" WHERE id ='"+ID.getText()+"'";
-					ResultSet rs = stmt.executeQuery(sql);
-				///	table.setModel(DbUtils.resultSetToTableModel(rs));
-					System.out.println(sql.toString());
-					System.out.println(rs.toString());
-
-					stmt.executeQuery(sql);
-					if(rs.next()) {
-						
-						
-						
-					}
-					else
-						JOptionPane.showMessageDialog(null,"ID not found create new user");
-					con.close();
 					
+					PreparedStatement preparedStatement = con.prepareStatement("UPDATE employee SET " + "first_name = ?, last_name = ?, email = ?, role = ?, department_name =? WHERE id = ? " + ";");
+					preparedStatement.setString(1,first_name.getText());
+					preparedStatement.setString(2,last_name.getText());
+					preparedStatement.setString(3,email.getText());
+					preparedStatement.setString(4,role.getText());
+					preparedStatement.setString(5,department.getText());
+
+					preparedStatement.setString(6,ID.getText());
+					preparedStatement.executeUpdate();
+					
+					System.out.println("Updating...");
+
+					
+	
 				} catch(Exception t){System.out.print(t);};
 				
 				
@@ -230,14 +242,61 @@ public class AddEmployee extends JFrame {
 		});
 		btnUpdate.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnUpdate.setBackground(new Color(169, 169, 169));
-		btnUpdate.setBounds(252, 176, 96, 23);
+		btnUpdate.setBounds(182, 179, 96, 23);
 		contentPane.add(btnUpdate);
 		
 		JButton btnCreateNew = new JButton("Create New");
+		btnCreateNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					
+					//Class.forName("com.mysql.jdbc.Driver");
+					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clark's pools", "root", "");
+					
+					PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO employee (first_name,last_name,email,id,password,role,department_name)"
+							+ " VALUES (" + "first_name = ?, last_name = ?, email = ?, id = ?, password = ?, role = ?, department_name = ? " + ")");
+					preparedStatement.setString(1,first_name.getText());
+					preparedStatement.setString(2,last_name.getText());
+					preparedStatement.setString(3,email.getText());
+					preparedStatement.setString(4,ID.getText());
+					preparedStatement.setString(5,password.getText());
+					preparedStatement.setString(6,role.getText());
+					preparedStatement.setString(7,department.getText());
+					preparedStatement.executeUpdate();
+
+					System.out.print("...Adding User");
+
+					
+					//ResultSet rs = stmt.executeQuery(sql);
+				///	table.setModel(DbUtils.resultSetToTableModel(rs));
+					System.out.println(preparedStatement.toString());
+					//System.out.println(rs.toString());
+					
+					
+					
+			//		stmt.executeUpdate(sql);
+//					if(rs.next()) {
+//						
+//						
+//						
+//					}
+//					else
+//						JOptionPane.showMessageDialog(null,"ID not found create new user");
+//					con.close();
+					
+				} catch(Exception t){System.out.print(t);};
+				
+				
+				
+			}
+		});
 		btnCreateNew.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnCreateNew.setBackground(new Color(169, 169, 169));
-		btnCreateNew.setBounds(382, 176, 96, 23);
+		btnCreateNew.setBounds(304, 179, 96, 23);
 		contentPane.add(btnCreateNew);
+		
+		
+		
 		
 		setUndecorated(true);
 	}

@@ -104,6 +104,12 @@ public class OrderEntry extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		btnNewButton_1 = new JButton("Repair");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CustomerSearch customerSearch = new CustomerSearch();
+				customerSearch.setVisible(true);
+			}
+		});
 		btnNewButton_1.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_1.setBounds(194, 77, 129, 39);
 		contentPane.add(btnNewButton_1);

@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.awt.Color;
@@ -26,15 +27,16 @@ import javax.swing.JButton;
 public class CustomerInfo extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField firstName;
-	private JTextField lastName;
+	private JTextField first_name;
+	private JTextField last_name;
 	private JTextField street_number;
 	private JTextField street_name;
 	private JTextField city;
 	private JTextField email;
 	private JTextField phone_type;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField phone_number;
+	private JTextField state;
+	static String customerID;
 
 	/**
 	 * Launch the application.
@@ -51,6 +53,12 @@ public class CustomerInfo extends JFrame {
 			}
 		});
 	}
+	
+	public static String getCustomerID(String customerID) {
+		
+		
+		return customerID;
+	}
 
 	/**
 	 * Create the frame.
@@ -64,19 +72,19 @@ public class CustomerInfo extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		firstName = new JTextField();
-		firstName.setBackground(Color.WHITE);
-		firstName.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		firstName.setColumns(10);
-		firstName.setBounds(29, 90, 233, 20);
-		contentPane.add(firstName);
+		first_name = new JTextField();
+		first_name.setBackground(Color.WHITE);
+		first_name.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		first_name.setColumns(10);
+		first_name.setBounds(29, 90, 233, 20);
+		contentPane.add(first_name);
 		
-		lastName = new JTextField();
-		lastName.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lastName.setColumns(10);
-		lastName.setBackground(Color.WHITE);
-		lastName.setBounds(413, 90, 224, 20);
-		contentPane.add(lastName);
+		last_name = new JTextField();
+		last_name.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		last_name.setColumns(10);
+		last_name.setBackground(Color.WHITE);
+		last_name.setBounds(413, 90, 224, 20);
+		contentPane.add(last_name);
 		
 		street_number = new JTextField();
 		street_number.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -154,27 +162,39 @@ public class CustomerInfo extends JFrame {
 		p.setBounds(210, 174, 76, 20);
 		contentPane.add(p);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField.setColumns(10);
-		textField.setBackground(Color.WHITE);
-		textField.setBounds(397, 195, 160, 20);
-		contentPane.add(textField);
-		
-		JLabel phone_number = new JLabel("phone number");
-		phone_number.setBounds(397, 174, 76, 20);
+		phone_number = new JTextField();
+		phone_number.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		phone_number.setColumns(10);
+		phone_number.setBackground(Color.WHITE);
+		phone_number.setBounds(397, 195, 160, 20);
 		contentPane.add(phone_number);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textField_1.setColumns(10);
-		textField_1.setBackground(Color.WHITE);
-		textField_1.setBounds(483, 143, 86, 20);
-		contentPane.add(textField_1);
+		JTextField customer_id = new JTextField();
+		customer_id.setEditable(false);
+		customer_id.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		customer_id.setColumns(10);
+		customer_id.setBackground(Color.WHITE);
+		customer_id.setBounds(10, 440, 86, 20);
+		contentPane.add(customer_id);
 		
-		JLabel state = new JLabel("State");
-		state.setBounds(495, 121, 62, 27);
+		JLabel customer_idtxt = new JLabel("customer id");
+		customer_idtxt.setBounds(21, 415, 62, 27);
+		contentPane.add(customer_idtxt);
+		
+		JLabel phone_numbertxt = new JLabel("phone number");
+		phone_numbertxt.setBounds(397, 174, 76, 20);
+		contentPane.add(phone_numbertxt);
+		
+		state = new JTextField();
+		state.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		state.setColumns(10);
+		state.setBackground(Color.WHITE);
+		state.setBounds(483, 143, 86, 20);
 		contentPane.add(state);
+		
+		JLabel statetxt = new JLabel("State");
+		statetxt.setBounds(495, 121, 62, 27);
+		contentPane.add(statetxt);
 		
 		JButton Next = new JButton("Next");
 		Next.addActionListener(new ActionListener() {
@@ -188,15 +208,30 @@ public class CustomerInfo extends JFrame {
 					System.out.println("Inserting records into table...");
 					
 					String sql = "INSERT INTO `customer` (`first_name`, `last_name`, `email`, `phone_type`, `phone_number`, `street_number`, `street_name`, `city`, `state`, `customer_id`) VALUES ('" 
-					+firstName.getText()+"','"+lastName.getText().toString()+"',"+"'"+ email.getText()+"',"+"'"
+					+first_name.getText()+"','"+last_name.getText().toString()+"',"+"'"+ email.getText()+"',"+"'"
 					+phone_type.getText()+"',"+ "'"+ phone_number.getText()+"',"+"'"+street_number.getText()+"'," +"'"+street_name.getText()+"',"+ "'"+city.getText()+"'," + "'"+ state.getText()+"'" +","+ null+")";
 					//ResultSet rs = stmt.executeQuery(sql);
 					System.out.println(sql);
 					stmt.executeUpdate(sql);
 					
+					String sql1 = "SELECT customer_id from customer where first_name ='"+first_name.getText()+"' and last_name ='"+last_name.getText()+"'";
+					ResultSet rs1 = stmt.executeQuery(sql1);
+					System.out.println(sql1);
+					System.out.println(rs1);
+
+
+					
+					if(rs1.next()) {
+						customerID = rs1.getString("customer_id");
+						customer_id.setText(customerID);
+						System.out.println(customerID);
+						
+						getCustomerID(customerID);
+					}
+					
 					JOptionPane.showMessageDialog(null,"customer successfully added to the database");
 					
-					Pool pool = new Pool();
+					FirstPoolScreen pool = new FirstPoolScreen();
 					pool.setVisible(true); 
 					//System.out.println(rs);
 
@@ -216,6 +251,8 @@ public class CustomerInfo extends JFrame {
 				
 			}
 		});
+		
+		
 				
 				
 				

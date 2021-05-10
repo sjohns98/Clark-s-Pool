@@ -10,6 +10,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.SwingConstants;
@@ -45,7 +47,11 @@ public class Pool extends JFrame {
 				}
 			}
 		});
+	
 	}
+		
+	CustomerInfo customerInfo = new CustomerInfo();
+
 
 	/**
 	 * Create the frame.
@@ -96,9 +102,9 @@ public class Pool extends JFrame {
 		comboBox_2.setBounds(230, 34, 74, 22);
 		//contentPane.add(comboBox_2);
 		
-		JComboBox comboBox_2_1 = new JComboBox();
-		comboBox_2_1.addItem("Sizes");
-		comboBox_2_1.setBounds(597, 33, 74, 22);
+		JComboBox liner_sizes = new JComboBox();
+		liner_sizes.addItem("Sizes");
+		liner_sizes.setBounds(346, 34, 74, 22);
 		//contentPane.add(comboBox_2_1);
 		
 		JComboBox filter_type = new JComboBox();
@@ -123,10 +129,10 @@ public class Pool extends JFrame {
 		filter_size.setBounds(262, 102, 74, 22);
 		contentPane.add(filter_size);
 		
-		JComboBox multiport_value_value = new JComboBox();
-		multiport_value_value.addItem("MPVBrands");
-		multiport_value_value.setBounds(10, 166, 74, 22);
-		contentPane.add(multiport_value_value);
+		JComboBox multiport_brand = new JComboBox();
+		multiport_brand.addItem("MPVBrands");
+		multiport_brand.setBounds(10, 166, 74, 22);
+		contentPane.add(multiport_brand);
 		
 		JComboBox multiport_sizes = new JComboBox();
 		multiport_sizes.addItem("MPVSizes");
@@ -144,21 +150,21 @@ public class Pool extends JFrame {
 		contentPane.add(pump_model);
 		
 		JComboBox pump_size = new JComboBox();
-		pump_size.addItem("PumpSize's");
+		pump_size.addItem("PumpSizes");
 		pump_size.setBounds(178, 227, 74, 22);
 		contentPane.add(pump_size);
 		
 		JComboBox number_pumps = new JComboBox();
-		number_pumps.addItem("#Pumps");
+		number_pumps.addItem("Pumps");
 		number_pumps.setBounds(262, 227, 74, 22);
 		contentPane.add(number_pumps);
 		
-		JComboBox chlorine_dispenser = new JComboBox();
-		chlorine_dispenser.addItem("Chlorine Dispenser");
-		chlorine_dispenser.addItem("Salt Generator");
-		chlorine_dispenser.addItem("Floating Dispenser");
-		chlorine_dispenser.setBounds(10, 296, 74, 22);
-		contentPane.add(chlorine_dispenser);
+		JComboBox chlorine_type = new JComboBox();
+		chlorine_type.addItem("Chlorine Dispenser");
+		chlorine_type.addItem("Salt Generator");
+		chlorine_type.addItem("Floating Dispenser");
+		chlorine_type.setBounds(10, 296, 74, 22);
+		contentPane.add(chlorine_type);
 		
 		JComboBox chlorine_brands = new JComboBox();
 		chlorine_brands.addItem("ChlorineBrands");
@@ -171,12 +177,12 @@ public class Pool extends JFrame {
 		contentPane.add(chlorine_models);
 		
 		JComboBox skimmers = new JComboBox();
-		skimmers.addItem("#skimmers");
+		skimmers.addItem("skimmers");
 		skimmers.setBounds(10, 352, 74, 22);
 		contentPane.add(skimmers);
 		
 		JComboBox returns = new JComboBox();
-		returns.addItem("#returns");
+		returns.addItem("returns");
 		returns.setBounds(94, 352, 74, 22);
 		contentPane.add(returns);
 		
@@ -214,93 +220,89 @@ public class Pool extends JFrame {
 		contentPane.add(checkBox);
 		
 		JComboBox cover_brand = new JComboBox();
-		cover_brand.setBounds(178, 67, 74, 22);
+		cover_brand.setBounds(164, 67, 74, 22);
 		cover_brand.addItem("cb");
 		
 		JComboBox cover_serial = new JComboBox();
 		cover_serial.addItem("123");
-		cover_serial.setBounds(262, 67, 74, 22);
+		cover_serial.setBounds(248, 67, 74, 22);
 		
 		JComboBox cover_color = new JComboBox();
 		cover_color.addItem("cb");
-		cover_color.setBounds(346, 67, 74, 22);
+		cover_color.setBounds(332, 67, 74, 22);
 	
 		
 		JComboBox cover_type = new JComboBox();
 		cover_type.addItem("cover type");
-		cover_type.setBounds(429, 67, 74, 22);
+		cover_type.setBounds(416, 67, 74, 22);
 		
 		
 		JComboBox cover_spacing = new JComboBox();
 		cover_spacing.addItem("20");
-		cover_spacing.setBounds(512, 67, 74, 22);
+		cover_spacing.setBounds(500, 67, 74, 22);
 		
 		JComboBox cover_safety_check = new JComboBox();
 		cover_safety_check.addItem("2012-05-01");
-		cover_safety_check.setBounds(597, 67, 74, 22);
+		cover_safety_check.setBounds(584, 67, 74, 22);
 		
-		JComboBox comboBox_2_2_1_2_1 = new JComboBox();
-		comboBox_2_2_1_2_1.setBounds(527, 56, 74, 22);
-		comboBox_2_2_1_2_1.addItem("Tile Sizes");
+		JComboBox concrete_tile_sizes = new JComboBox();
+		concrete_tile_sizes.setBounds(394, 34, 82, 22);
+		concrete_tile_sizes.addItem("Tile Sizes");
 		
-		JComboBox comboBox_2_2_1_16_7 = new JComboBox();
-		comboBox_2_2_1_16_7.addItem("ConcreteTilePatterns");
-		comboBox_2_2_1_16_7.setBounds(480, 33, 111, 22);
+		JComboBox concrete_tile_patterns = new JComboBox();
+		concrete_tile_patterns.addItem("ConcreteTilePatterns");
+		concrete_tile_patterns.setBounds(302, 33, 82, 22);
 		
-		JComboBox comboBox_2_2_1_16_8 = new JComboBox();
-		comboBox_2_2_1_16_8.addItem("FiberglassTilePatterns");
-		comboBox_2_2_1_16_8.setBounds(192, 33, 114, 22);
+		JComboBox fiberglass_tile_patterns = new JComboBox();
+		fiberglass_tile_patterns.addItem("FiberglassTilePatterns");
+		fiberglass_tile_patterns.setBounds(208, 34, 120, 22);
 		
-		JComboBox comboBox_2_2_1_16_10 = new JComboBox();
-		comboBox_2_2_1_16_10.addItem("ConcretePoolFinishTypes");
-		comboBox_2_2_1_16_10.setBounds(328, 33, 134, 22);
+		JComboBox fiberglass_manufacturer = new JComboBox();
+		fiberglass_manufacturer.addItem("FiberglassPoolManufacturers");
+		fiberglass_manufacturer.setBounds(429, 33, 120, 22);
 		
-		JComboBox comboBox_2_2_1_16_11 = new JComboBox();
-		comboBox_2_2_1_16_11.addItem("FiberglassPoolManufacturers");
-		comboBox_2_2_1_16_11.setBounds(472, 33, 93, 22);
+		JComboBox fiberglass_tile_size = new JComboBox();
+		fiberglass_tile_size.addItem("FiberglassTileSizes");
+		fiberglass_tile_size.setBounds(338, 33, 82, 22);
 		
-		JComboBox comboBox_2_2_1_16_8_1 = new JComboBox();
-		comboBox_2_2_1_16_8_1.addItem("FiberglassTileSizes");
-		comboBox_2_2_1_16_8_1.setBounds(336, 33, 106, 22);
+		JComboBox spa_tile_shape = new JComboBox();
+		spa_tile_shape.addItem("SpaShapes");
+		spa_tile_shape.setBounds(294, 33, 82, 22);
 		
-		JComboBox comboBox_2_2_1_16_1 = new JComboBox();
-		comboBox_2_2_1_16_1.addItem("SpaShapes");
-		comboBox_2_2_1_16_1.setBounds(202, 33, 82, 22);
+		JComboBox spa_tile_pattern = new JComboBox();
+		spa_tile_pattern.addItem("SpaTilePatterns");
+		spa_tile_pattern.setBounds(202, 33, 82, 22);
 		
-		JComboBox comboBox_2_2_1_16_2 = new JComboBox();
-		comboBox_2_2_1_16_2.addItem("SpaTilePatterns");
-		comboBox_2_2_1_16_2.setBounds(328, 33, 114, 22);
+		JComboBox spa_manufacturer = new JComboBox();
+		spa_manufacturer.addItem("SpaManufacturer");
+		spa_manufacturer.setBounds(466, 34, 97, 22);
 		
-		JComboBox comboBox_2_2_1_16_3 = new JComboBox();
-		comboBox_2_2_1_16_3.addItem("SpaManufacturer");
-		comboBox_2_2_1_16_3.setBounds(476, 33, 111, 22);
+		JComboBox spa_tile_sizes = new JComboBox();
+		spa_tile_sizes.addItem("SpaTileSizes");
+		spa_tile_sizes.setBounds(386, 33, 74, 22);
 		
-		JComboBox comboBox_2_2_1_16_4 = new JComboBox();
-		comboBox_2_2_1_16_4.addItem("SpaTileSizes");
-		comboBox_2_2_1_16_4.setBounds(597, 34, 74, 22);
+		JComboBox spa_sizes = new JComboBox();
+		spa_sizes.addItem("SpaSizes");
+		spa_sizes.setBounds(573, 34, 82, 22);
 		
-		JComboBox comboBox_2_2_1_16_5 = new JComboBox();
-		comboBox_2_2_1_16_5.addItem("SpaSizes");
-		comboBox_2_2_1_16_5.setBounds(202, 67, 82, 22);
+		JComboBox spa_elevations = new JComboBox();
+		spa_elevations.addItem("SpaElevations");
+		spa_elevations.setBounds(61, 67, 93, 22);
 		
-		JComboBox comboBox_2_2_1_16_6 = new JComboBox();
-		comboBox_2_2_1_16_6.addItem("SpaElevations");
-		comboBox_2_2_1_16_6.setBounds(292, 66, 93, 22);
+		JComboBox liner_pattern = new JComboBox();
+		liner_pattern.addItem("LinerPatterns");
+		liner_pattern.setBounds(208, 34, 123, 22);
 		
-		JComboBox comboBox_2_2_1_1_2 = new JComboBox();
-		comboBox_2_2_1_1_2.addItem("LinerPatterns");
-		comboBox_2_2_1_1_2.setBounds(197, 33, 123, 22);
-		
-		JComboBox comboBox_2_2_2_1 = new JComboBox();
-		comboBox_2_2_2_1.addItem("FinishColor/Pattern");
-		comboBox_2_2_2_1.setBounds(202, 33, 118, 22);
+		JComboBox concrete_color = new JComboBox();
+		concrete_color.addItem("FinishColor/Pattern");
+		concrete_color.setBounds(202, 33, 90, 22);
 		setUndecorated(true); //remove frame outline
 		
 		
 		
-//		checkBox.addItemListener(new ItemListener() {
-//			public void itemStateChanged(ItemEvent e) {
-//				if(e.getStateChange() == ItemEvent.SELECTED) {
+		checkBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED) {
 					
 					contentPane.add(cover_spacing);
 					contentPane.add(cover_type);
@@ -308,11 +310,13 @@ public class Pool extends JFrame {
 					contentPane.add(cover_color);
 					contentPane.add(cover_serial);
 					contentPane.add(cover_brand);
+					contentPane.revalidate();
+					contentPane.repaint();
 
-//				}
-//				
-//			}
-//		});
+				}
+				
+			}
+		});
 		checkBox.setBounds(99, 33, 97, 23);
 		
 		
@@ -323,9 +327,9 @@ public class Pool extends JFrame {
 			
 					
 						contentPane.add(comboBox_1);
-						contentPane.add(comboBox_2_2_1_1_2);
+						contentPane.add(liner_pattern);
 						contentPane.add(comboBox_2);
-						contentPane.add(comboBox_2_1);
+						contentPane.add(liner_sizes);
 						
 						contentPane.revalidate();
 						contentPane.repaint();
@@ -334,10 +338,9 @@ public class Pool extends JFrame {
 					}
 					if(material.getSelectedItem().toString().equals("Concrete")) {
 						
-						contentPane.add(comboBox_2_2_1_2_1);
-						contentPane.add(comboBox_2_2_2_1);
-						contentPane.add(comboBox_2_2_1_16_10);
-						contentPane.add(comboBox_2_2_1_16_7);
+						contentPane.add(concrete_tile_sizes);
+						contentPane.add(concrete_color);
+						contentPane.add(concrete_tile_patterns);
 
 
 
@@ -349,9 +352,9 @@ public class Pool extends JFrame {
 					if(material.getSelectedItem().toString().equals("Fiberglass")) {
 						
 					
-						contentPane.add(comboBox_2_2_1_16_8_1);
-						contentPane.add(comboBox_2_2_1_16_11);
-						contentPane.add(comboBox_2_2_1_16_8);
+						contentPane.add(fiberglass_tile_size);
+						contentPane.add(fiberglass_manufacturer);
+						contentPane.add(fiberglass_tile_patterns);
 
 
 
@@ -361,12 +364,12 @@ public class Pool extends JFrame {
 					}
 					if(material.getSelectedItem().toString().equals("Spa")) {
 						
-						contentPane.add(comboBox_2_2_1_16_1);
-						contentPane.add(comboBox_2_2_1_16_2);
-						contentPane.add(comboBox_2_2_1_16_3);
-						contentPane.add(comboBox_2_2_1_16_4);
-						contentPane.add(comboBox_2_2_1_16_5);
-						contentPane.add(comboBox_2_2_1_16_6);
+						contentPane.add(spa_tile_shape);
+						contentPane.add(spa_tile_pattern);
+						contentPane.add(spa_manufacturer);
+						contentPane.add(spa_tile_sizes);
+						contentPane.add(spa_sizes);
+						contentPane.add(spa_elevations);
 					
 
 
@@ -379,17 +382,17 @@ public class Pool extends JFrame {
 					}
 					
 					if(!material.getSelectedItem().toString().equals("Spa")) {
-						contentPane.remove(comboBox_2_2_1_16_1);
-						contentPane.remove(comboBox_2_2_1_16_2);
-						contentPane.remove(comboBox_2_2_1_16_3);
-						contentPane.remove(comboBox_2_2_1_16_4);
-						contentPane.remove(comboBox_2_2_1_16_5);
-						contentPane.remove(comboBox_2_2_1_16_6);
+						contentPane.remove(spa_tile_shape);
+						contentPane.remove(spa_tile_pattern);
+						contentPane.remove(spa_manufacturer);
+						contentPane.remove(spa_tile_sizes);
+						contentPane.remove(spa_sizes);
+						contentPane.remove(spa_elevations);
 						contentPane.revalidate();
 						contentPane.repaint();
 						}
 					if(!material.getSelectedItem().toString().equals("Vinyl")) {
-						contentPane.remove(comboBox_2_2_1_1_2);
+						contentPane.remove(liner_pattern);
 						contentPane.remove(comboBox_1);
 						contentPane.remove(comboBox_2);
 
@@ -398,10 +401,11 @@ public class Pool extends JFrame {
 						}
 					if(!material.getSelectedItem().toString().equals("Concrete")) {
 						
-						contentPane.remove(comboBox_2_1);
-						contentPane.remove(comboBox_2_2_2_1);
-						contentPane.remove(comboBox_2_2_1_16_10);
-						contentPane.remove(comboBox_2_2_1_16_7);
+						contentPane.remove(liner_sizes);
+						contentPane.remove(concrete_color);
+						contentPane.remove(concrete_tile_patterns);
+						contentPane.remove(concrete_tile_sizes);
+
 
 						
 						contentPane.revalidate();
@@ -409,9 +413,9 @@ public class Pool extends JFrame {
 						}
 					if(!material.getSelectedItem().toString().equals("Fiberglass")) {
 						
-						contentPane.remove(comboBox_2_2_1_16_8_1);
-						contentPane.remove(comboBox_2_2_1_16_11);
-						contentPane.remove(comboBox_2_2_1_16_8);
+						contentPane.remove(fiberglass_tile_size);
+						contentPane.remove(fiberglass_manufacturer);
+						contentPane.remove(fiberglass_tile_patterns);
 						
 						contentPane.revalidate();
 						contentPane.repaint();
@@ -434,29 +438,110 @@ public class Pool extends JFrame {
 					Statement stmt = con.createStatement();
 					System.out.println("Inserting records into table...");
 					
+					
+					String sql6 = "INSERT INTO `vinyl`(`liner_pattern`, `liner_sizes`, `id`) VALUES (`"+liner_pattern.getSelectedItem().toString()
+							+ "','"+liner_sizes.getSelectedItem() + "','"+ customerInfo.customerID + "');";
+					String sql7 = "INSERT INTO `concrete`(`concrete_color`, `concrete_tile_patterns`,`concrete_tile_sizes` ,`id`) VALUES (`"+concrete_color.getSelectedItem().toString()
+							+ "','"+concrete_tile_patterns.getSelectedItem() + "','"+ concrete_tile_sizes.getSelectedItem().toString()+"','"+customerInfo.customerID + "');";
+					String sql8 = "INSERT INTO `fiberglass`(`fiberglass_tile_pattern`, `fiberglass_tile_size`,`fiberglass_tile_manufacturer` ,`id`) VALUES (`"
+							+fiberglass_tile_patterns.getSelectedItem().toString()+ "','"+fiberglass_tile_size.getSelectedItem() + "','"
+							+ fiberglass_manufacturer.getSelectedItem().toString()+"','"+customerInfo.customerID + "');";
+					String sql9 = "INSERT INTO `spa`(`spa_tile_pattern`, `spa_shape`,`spa_tile_sizes`,`spa_manufacturer`,`spa_sizes`, `spa_elevations` ,`id`) VALUES (`"+spa_tile_pattern.getSelectedItem().toString()
+							+ "','"+spa_tile_shape.getSelectedItem() + "','"+ spa_tile_sizes.getSelectedItem().toString()+"','"+spa_manufacturer.getSelectedItem().toString()+"','"
+							+spa_sizes.getSelectedItem().toString() +"','"+ spa_elevations.getSelectedItem().toString()+"','"+customerInfo.customerID + "');";
+				
+					
+					
 					String sql = "INSERT INTO `filter` (`brand`, `type`, `size`, `model`, `id`) VALUES ('" 
-					+filter_brand.getSelectedItem()+"','"+filter_type.getSelectedItem().toString()+"',"+"'"+ filter_size.getSelectedItem()+"',"+"'"
-					+filter_model.getSelectedItem()+"',"+ null+");" + "\n" 
-					+"INSERT INTO `cover`(`brand`, `serial`, `color`, `type`, `last_safety_check_year`, `safety_cover_spacing`) VALUES ('"
-					+cover_brand.getSelectedItem() + "',"+ "'"+ cover_serial.getSelectedItem().toString() + "','"+ cover_color.getSelectedItem() +"','" + cover_type.getSelectedItem()+"','"+cover_safety_check.getSelectedItem().toString()+"','"+cover_spacing.getSelectedItem().toString()+"')";
-					//ResultSet rs = stmt.executeQuery(sql);
-					System.out.println(sql);
+					+filter_brand.getSelectedItem().toString()+"','"+filter_type.getSelectedItem().toString()+"',"+"'"+ filter_size.getSelectedItem().toString()+"',"+"'"
+					+filter_model.getSelectedItem().toString()+"','"+ customerInfo.customerID+"');" ;
+					
+					
+					String sql1 = ("INSERT INTO `cover` (`brand`, `serial`, `color`, "
+							+ "`type`, `last_safety_check_year`, `safety_cover_spacing`, `id`)"
+							+ " VALUES ('" + cover_brand.getSelectedItem().toString() +"','"+ cover_serial.getSelectedItem().toString()+ "','"+ cover_color.getSelectedItem().toString()+"','" 
+							+ cover_type.getSelectedItem().toString() + "','"+ cover_safety_check.getSelectedItem().toString() +"','" 
+							+ cover_spacing.getSelectedItem().toString() + "','"+ customerInfo.customerID + "');");
+//					preparedStatement.setString(1,cover_brand.getSelectedItem().toString());
+//					preparedStatement.setString(2,cover_serial.getSelectedItem().toString());
+//					preparedStatement.setString(3,cover_color.getSelectedItem().toString());
+//					preparedStatement.setString(4,cover_type.getSelectedItem().toString());
+//					preparedStatement.setString(5,cover_safety_check.getSelectedItem().toString());
+//					preparedStatement.setString(6,cover_spacing.getSelectedItem().toString());
+//					preparedStatement.setString(7,customerInfo.customerID);
+
+					
+					String sql2 = ("INSERT INTO `mulitport_valve` (`brand`, `size`, `id`)"
+							+ " VALUES ('" + multiport_brand.getSelectedItem().toString() +"','"+ multiport_sizes.getSelectedItem().toString() + "','"+ customerInfo.customerID + "');");
+//					preparedStatement1.setString(1,multiport_size.getSelectedItem().toString());
+//					preparedStatement1.setString(2,multiport_brand.getSelectedItem().toString());
+//					preparedStatement1.setString(3,customerInfo.customerID);
+
+					
+					String sql3 = ("INSERT INTO `pump` (`brand`, `model`,`size`,`number_of_pumps`, `id`)"
+							+ " VALUES ('" + pump_brand.getSelectedItem().toString() + "','"+ pump_model.getSelectedItem().toString()+"','"+ pump_size.getSelectedItem().toString()+ "','"
+							+ number_pumps.getSelectedItem().toString() + "','"+customerInfo.customerID + "');");
+//					preparedStatement2.setString(1,pump_brand.getSelectedItem().toString());
+//					preparedStatement2.setString(2,pump_model.getSelectedItem().toString());
+//					preparedStatement2.setString(3,pump_size.getSelectedItem().toString());
+//					preparedStatement2.setString(4,number_pumps.getSelectedItem().toString());
+//					preparedStatement2.setString(5,customerInfo.customerID);
+
+					
+					String sql4 = ("INSERT INTO `chlorinator` (`model`, `brand`, `type`, `id`)"
+							+ " VALUES ('" + chlorine_models.getSelectedItem().toString() +"','"+ chlorine_brands.getSelectedItem().toString()+"','"
+							+ chlorine_type.getSelectedItem().toString() + "','" + customerInfo.customerID + "');");
+//					preparedStatement3.setString(1,chlorine_models.getSelectedItem().toString());
+//					preparedStatement3.setString(2,chlorine_brands.getSelectedItem().toString());
+//					preparedStatement3.setString(3,chlorine_type.getSelectedItem().toString());
+//					preparedStatement3.setString(4,customerInfo.customerID);
+
+					
+					String sql5 = ("INSERT INTO `skimmers_returns` (`skimmers`, `returns`, `id`)"
+							+ " VALUES ('" + skimmers.getSelectedItem().toString() + "','" + returns.getSelectedItem().toString() + "','"+customerInfo.customerID  + "');");
+//					preparedStatement4.setString(1,skimmers.getSelectedItem().toString());
+//					preparedStatement4.setString(2,returns.getSelectedItem().toString());
+//					preparedStatement4.setString(3,customerInfo.customerID);
+
+				
+					
+					
+					
+
+					
+					
+					
+					//System.out.println(sql);
 					stmt.executeUpdate(sql);
+					stmt.executeUpdate(sql1);
+					stmt.executeUpdate(sql2);
+					stmt.executeUpdate(sql3);
+					stmt.executeUpdate(sql4);
+					stmt.executeUpdate(sql5);
+					stmt.executeUpdate(sql6);
+					stmt.executeUpdate(sql7);
+					stmt.executeUpdate(sql8);
+					stmt.executeUpdate(sql9);
+
+
+//					preparedStatement.executeUpdate();
+//					preparedStatement1.executeUpdate();
+//					preparedStatement2.executeUpdate();
+//					preparedStatement3.executeUpdate();
+//					preparedStatement4.executeUpdate();
+					
+					
+					
+					
+					
 					
 					JOptionPane.showMessageDialog(null,"order successfully added to the database");
 					
 					TaskFinished taskFinished = new TaskFinished();
 					taskFinished.setVisible(true);
-					//System.out.println(rs);
 
 					
-//					if(rs.next()) {
-//						OrderEntry orderEntry = new OrderEntry();
-//						orderEntry.setVisible(true);
-//					}
-//					else
-//						JOptionPane.showMessageDialog(null,"Incorrect username and Password...");
-//					con.close();
+
 					
 				} catch(Exception t){System.out.print(t);};
 				
@@ -470,5 +555,35 @@ public class Pool extends JFrame {
 		btnBuildOrder.setBounds(10, 418, 96, 23);
 		contentPane.add(btnBuildOrder);
 
-	}
-}
+				}
+				
+			
+			}
+			
+		
+		
+			
+			
+//	public static String join(){
+//
+//		try {
+//			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/clark's pools", "root", "");
+//			Statement stmt = con.createStatement();
+//			String sql = "SELECT customer.first_name, customer.last_name, customer.phone_type, customer.phone_number, customer.email,\r\n"
+//					+ "customer.street_number, customer.street_name, customer.city, customer.state, chlorinator.brand,chlorinator.model, chlorinator.type,\r\n"
+//					+ "cover.brand, cover.serial, cover.color, cover.type, cover.last_safety_check_year, cover.safety_cover_spacing, filter.brand,filter.type,filter.size,filter.model,mulitport_valve.Brand,mulitport_valve.Size,pool.builder,pool.coping,pool.max_depth,pool.number_of_steps,\r\n"
+//					+ "pool.shape,pool.square_footage,pool.type_of_steps,pool.year_built, pump.brand,pump.model,pump.number_of_pumps,pump.size, skimmers_returns.skimmers, skimmers_returns.returns\r\n"
+//					+ "FROM chlorinator,cover,customer,filter,mulitport_valve,pool,pump,skimmers_returns\r\n"
+//					+ "WHERE customer.customer_id=pool.id";
+//			
+//			
+//			
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//}
+	
+			
+
